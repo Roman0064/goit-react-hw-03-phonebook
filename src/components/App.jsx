@@ -16,13 +16,17 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    console.log("did mount")
+    const contactsParsed = JSON.parse(localStorage.getItem('contacts'));
+
+    if(contactsParsed){
+      this.setState({ contacts: contactsParsed });
+    };
   };
 
-  componentDidUpdate(prevProps, prevState){
-    console.log("did update");
-    console.log(prevState);
-    console.log(this.state);
+  componentDidUpdate(prevState){
+    if(this.state.contacts !== prevState.contacts){
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    };
   };
 
   handleAddContact = (newContact) => {
